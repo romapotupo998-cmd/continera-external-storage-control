@@ -1,0 +1,13 @@
+{
+  "id": "./",
+  "name": "Continera External Storage Control",
+  "short_name": "Continera Storage",
+  "description": "Керування зовнішніми багажними відсіками DAF XG+ 530",
+  "lang": "uk",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0a1016",
+  "theme_color": "#101820"
+}
