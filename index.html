@@ -45,9 +45,10 @@
 <script>
 (() => {
  const STORE="continera-external-storage-v1";
+ const MAX_ITEMS=8;
  const fresh=()=>({active:"left",keyIn:null,unlocked:{left:false,right:false},open:{left:false,right:false},items:{left:[],right:[]}});
  let data=fresh();
- try{const saved=JSON.parse(localStorage.getItem(STORE));if(saved&&saved.unlocked&&saved.open&&saved.items)data={...fresh(),...saved};}catch{}
+ try{const saved=JSON.parse(localStorage.getItem(STORE));if(saved&&saved.unlocked&&saved.open&&saved.items){data={...fresh(),...saved};for(const s of ["left","right"]){data.items[s]=Array.isArray(data.items[s])?data.items[s].slice(0,MAX_ITEMS):[];}}}catch{}
  const $=id=>document.getElementById(id);
  const side=()=>data.active;
  function save(){localStorage.setItem(STORE,JSON.stringify(data));}
@@ -67,9 +68,11 @@
   $("doorBtn").textContent=open?"ЗАЧИНИТИ ВІДСІК":"ВІДЧИНИТИ ВІДСІК";
   $("removeBtn").disabled=!keyHere||open;
   $("items").innerHTML="";const list=data.items[s]||[];
-  $("countPill").textContent=list.length+" ПРЕДМЕТІВ";$("emptyText").hidden=list.length>0;
+  $("countPill").textContent=list.length+" / "+MAX_ITEMS+" ПРЕДМЕТІВ";$("emptyText").hidden=list.length>0;
   list.forEach((name,i)=>{const el=document.createElement("span");el.className="item";const label=document.createElement("span");label.textContent=name;const del=document.createElement("button");del.type="button";del.textContent="×";del.setAttribute("aria-label","Видалити "+name);del.addEventListener("click",()=>{if(!data.open[s])return;data.items[s].splice(i,1);save();render();});el.append(label,del);$("items").append(el);});
-  $("addBtn").disabled=!open;$("itemInput").disabled=!open;
+  const full=list.length>=MAX_ITEMS;
+  $("addBtn").disabled=!open||full;$("itemInput").disabled=!open||full;
+  $("itemInput").placeholder=full?"ВІДСІК ЗАПОВНЕНИЙ (8/8)":"Назва предмета...";
  }
  function switchSide(next){if(data.keyIn!==null&&data.keyIn!==next){/* key stays in the other lock */}data.active=next;save();render();}
  $("leftTab").addEventListener("click",()=>switchSide("left"));$("rightTab").addEventListener("click",()=>switchSide("right"));
@@ -77,7 +80,7 @@
  $("turnBtn").addEventListener("click",()=>{if(data.keyIn!==side())return;data.unlocked[side()]=true;save();render();});
  $("doorBtn").addEventListener("click",()=>{const s=side();if(!data.unlocked[s]&& !data.open[s])return;data.open[s]=!data.open[s];save();render();});
  $("removeBtn").addEventListener("click",()=>{const s=side();if(data.keyIn!==s||data.open[s])return;if(data.unlocked[s])data.unlocked[s]=false;data.keyIn=null;save();render();});
- function addItem(){const input=$("itemInput"),value=input.value.trim();if(!value||!data.open[side()])return;data.items[side()].push(value);input.value="";save();render();}
+ function addItem(){const input=$("itemInput"),value=input.value.trim(),list=data.items[side()];if(!value||!data.open[side()]||list.length>=MAX_ITEMS)return;list.push(value);input.value="";save();render();}
  $("addBtn").addEventListener("click",addItem);$("itemInput").addEventListener("keydown",e=>{if(e.key==="Enter")addItem();});
  render();
  if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
