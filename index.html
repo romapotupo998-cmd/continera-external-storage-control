@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101820">
+<meta name="description" content="Continera External Storage Control — керування зовнішніми відсіками DAF XG+ 530">
+<link rel="manifest" href="./manifest.json">
+<title>Continera External Storage Control</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1016;--panel:#18232c;--panel2:#202d37;--line:#3a4a56;--muted:#9aa9b4;--text:#edf2f5;--gold:#d6ad58;--green:#80c99d;--red:#d47d70}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:22px;background:radial-gradient(ellipse at 50% -25%,#344552 0%,#111a22 48%,#080d12 100%);font-family:Inter,system-ui,"Segoe UI",sans-serif;color:var(--text)}
+.app{max-width:980px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px}.mark{width:43px;height:43px;display:grid;place-items:center;border-radius:12px;border:1px solid #64737e;background:linear-gradient(145deg,#354550,#121b23);font-weight:900;font-size:19px;letter-spacing:-2px}h1{margin:0;font-size:17px;letter-spacing:.09em}.sub{margin-top:5px;color:var(--muted);font-size:10px;letter-spacing:.13em}.model{padding:9px 12px;border:1px solid var(--line);border-radius:9px;background:#111a21;color:#d6e0e6;font-size:11px;white-space:nowrap}
+.panel{overflow:hidden;border:1px solid #3a4a56;border-radius:17px;background:linear-gradient(145deg,#202d37,#121b23);box-shadow:0 24px 65px #0008}.panel-head{display:flex;justify-content:space-between;align-items:center;padding:16px 19px;border-bottom:1px solid var(--line)}.panel-head strong{font-size:11px;letter-spacing:.13em}.live{color:var(--green);font-size:10px;letter-spacing:.1em}.live:before{content:"";display:inline-block;width:7px;height:7px;margin-right:8px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green)}
+.tabs{display:flex;gap:8px;padding:14px 18px;background:#101820;border-bottom:1px solid var(--line)}.tab{flex:1;padding:12px;border:1px solid #43545f;border-radius:9px;background:#1b2831;color:#b9c5cc;font-weight:800;font-size:11px;letter-spacing:.08em;cursor:pointer}.tab.active{border-color:var(--gold);background:linear-gradient(180deg,#e5c779,#b58b3e);color:#1a1d1f}
+.content{padding:22px;background:linear-gradient(180deg,#1a2731,#111a21)}.side-title{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px}.side-title h2{margin:0;font-size:15px;letter-spacing:.1em}.side-title span{font-size:10px;color:var(--muted)}
+.scene{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:24px;align-items:center}.compartment-wrap{min-height:255px;display:grid;place-items:center;padding:18px;border:1px solid #344550;border-radius:13px;background:radial-gradient(ellipse at center,#33434e,#18242d 70%)}.truck-side{width:min(100%,500px);position:relative}.truck-body{height:145px;position:relative;border:2px solid #65737d;border-radius:13px 13px 5px 5px;background:linear-gradient(180deg,#d6dde0,#687780 18%,#273640 24%,#17232b 100%);box-shadow:inset 0 3px 8px #fff4,0 12px 20px #0007}.truck-body:before{content:"";position:absolute;left:7%;right:7%;top:13px;height:9px;border-radius:5px;background:#111a21;opacity:.75}.compartment-door{position:absolute;left:29%;top:35px;width:42%;height:88px;border:2px solid #a9b4bb;border-radius:7px;background:linear-gradient(145deg,#53636e,#263640);box-shadow:inset 0 0 0 4px #10182055;transition:transform .35s,background .25s;transform-origin:left center}.compartment-door.open{transform:perspective(500px) rotateY(-48deg);background:linear-gradient(145deg,#263640,#101820)}.handle{position:absolute;right:10px;top:35px;width:7px;height:20px;border-radius:3px;background:#c4cbd0;box-shadow:0 0 0 2px #17232b}.wheel{position:absolute;bottom:-20px;width:54px;height:54px;border:8px solid #080d11;border-radius:50%;background:radial-gradient(circle,#87939a 0 22%,#18232c 24% 100%);box-shadow:0 3px 7px #0009}.wheel.one{left:13%}.wheel.two{right:13%}.door-status{margin-top:13px;color:#aab7c0;font-size:10px;letter-spacing:.12em;text-align:center}
+.lock-zone{padding:17px 12px 15px;border:1px solid #344550;border-radius:13px;background:linear-gradient(145deg,#263640,#131d25);text-align:center}.lock-label{font-size:10px;line-height:1.5;letter-spacing:.1em;color:#aab7c0}.lock-panel{position:relative;width:126px;height:105px;margin:13px auto 9px;display:grid;place-items:center;border:1px solid #4a5b66;border-radius:11px;background:linear-gradient(145deg,#34434d,#172129);overflow:hidden}.cylinder{width:49px;height:49px;border-radius:50%;border:6px solid #89949b;background:radial-gradient(circle,#070c10 0 27%,#c4cbd0 29% 34%,#25323a 37% 100%);box-shadow:0 0 0 4px #101820}.slot{position:absolute;width:5px;height:20px;border-radius:3px;background:#05090c}.key{position:absolute;left:50%;top:50%;display:flex;align-items:center;gap:0;transform:translate(-50%,-50%) translateX(125px);transition:transform .4s cubic-bezier(.2,.78,.22,1);filter:drop-shadow(0 3px 3px #000b)}.key.inserted{transform:translate(-50%,-50%) translateX(18px)}.key-blade{width:42px;height:7px;background:linear-gradient(#ffe5a0,#b48735 55%,#76531f);transition:opacity .2s}.key.inserted .key-blade{opacity:0;transition-delay:.3s}.key-head{width:27px;height:27px;border:5px solid #e1c276;border-radius:50%;background:#26313a;flex:none}.key-help{font-size:10px;color:#9eacb6}
+.status{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:18px;padding:14px 16px;border:1px solid #344550;border-radius:10px;background:#101820}.status-label{font-size:9px;color:var(--muted);letter-spacing:.13em}.status-value{margin-top:5px;font-size:12px;font-weight:800}.pill{padding:6px 9px;border:1px solid #52616b;border-radius:20px;color:#c4cdd2;font-size:9px;white-space:nowrap}.pill.good{border-color:#527b63;color:var(--green)}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}.btn{flex:1;min-width:135px;min-height:43px;padding:11px;border:1px solid #596a76;border-radius:8px;background:linear-gradient(180deg,#394b57,#263640);color:#f3f6f8;font-weight:800;font-size:10px;letter-spacing:.06em;cursor:pointer}.btn.primary{border-color:#e0c27b;background:linear-gradient(180deg,#e5c779,#b58b3e);color:#1a1d1f}.btn:disabled{opacity:.35;cursor:not-allowed}
+.contents{margin-top:18px;padding:16px;border:1px solid #344550;border-radius:11px;background:#111a21}.contents-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}.contents-head strong{font-size:10px;letter-spacing:.12em}.add-row{display:flex;gap:8px}.add-row input{min-width:0;flex:1;padding:10px;border:1px solid #465762;border-radius:7px;background:#0c141a;color:var(--text);outline:none}.add-row input:focus{border-color:var(--gold)}.add-row button{padding:9px 13px;border:1px solid #596a76;border-radius:7px;background:#2b3b45;color:white;font-weight:800;cursor:pointer}.items{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.item{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid #3d4e59;border-radius:7px;background:#1b2831;color:#d5dfe4;font-size:11px}.item button{border:0;background:none;color:#d88a7e;font-size:14px;cursor:pointer}.empty{color:#84939d;font-size:11px;margin-top:10px}.footer{text-align:center;margin:16px;color:#6e7e89;font-size:9px;letter-spacing:.15em}
+@media(max-width:680px){body{padding:12px}.top{align-items:flex-start}.model{font-size:9px}.content{padding:14px}.scene{grid-template-columns:1fr}.compartment-wrap{min-height:225px}.lock-zone{width:min(100%,280px);justify-self:center}.status{align-items:flex-start;flex-direction:column}.actions{flex-direction:column}.btn{width:100%}.add-row{flex-direction:column}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="app">
+<header class="top"><div class="brand"><div class="mark">C.</div><div><h1>CONTINERA EXTERNAL STORAGE</h1><div class="sub">ЗОВНІШНІ БАГАЖНІ ВІДСІКИ</div></div></div><div class="model">DAF XG+ 530</div></header>
+<section class="panel">
+<div class="panel-head"><strong>СИСТЕМА ЗОВНІШНЬОГО ЗБЕРІГАННЯ</strong><span class="live">СИСТЕМА АКТИВНА</span></div>
+<nav class="tabs" aria-label="Вибір відсіку"><button class="tab active" id="leftTab" type="button">ЛІВИЙ ВІДСІК</button><button class="tab" id="rightTab" type="button">ПРАВИЙ ВІДСІК</button></nav>
+<section class="content">
+<div class="side-title"><h2 id="sideTitle">ЛІВИЙ БОКОВИЙ ВІДСІК</h2><span id="sideCaption">СТОРОНА ВОДІЯ</span></div>
+<div class="scene">
+<div class="compartment-wrap"><div class="truck-side"><div class="truck-body"><div class="compartment-door" id="door"><div class="handle"></div></div><div class="wheel one"></div><div class="wheel two"></div></div><div class="door-status" id="doorCaption">ДВЕРЦЯТА ЗАЧИНЕНІ</div></div></div>
+<div class="lock-zone"><div class="lock-label">ЗАМОК БАГАЖНОГО ВІДСІКУ<br>СПІЛЬНИЙ МЕХАНІЧНИЙ КЛЮЧ</div><div class="lock-panel"><div class="cylinder"></div><div class="slot"></div><div class="key" id="key"><div class="key-blade"></div><div class="key-head"></div></div></div><div class="key-help" id="keyCaption">КЛЮЧ ВИТЯГНУТИЙ</div></div>
+</div>
+<div class="status"><div><div class="status-label">СТАН ВІДСІКУ</div><div class="status-value" id="stateText">ЗАЧИНЕНИЙ · ЗАБЛОКОВАНИЙ</div></div><span class="pill" id="keyPill">КЛЮЧ НЕ В ЗАМКУ</span></div>
+<div class="actions"><button class="btn" id="insertBtn" type="button">ВСТАВИТИ КЛЮЧ</button><button class="btn" id="turnBtn" type="button" disabled>ПОВЕРНУТИ КЛЮЧ</button><button class="btn primary" id="doorBtn" type="button" disabled>ВІДЧИНИТИ ВІДСІК</button><button class="btn" id="removeBtn" type="button" disabled>ВИТЯГНУТИ КЛЮЧ</button></div>
+<div class="contents"><div class="contents-head"><strong>ВМІСТ ВІДСІКУ</strong><span class="pill" id="countPill">0 ПРЕДМЕТІВ</span></div><div class="add-row"><input id="itemInput" type="text" maxlength="60" placeholder="Назва предмета..." aria-label="Назва предмета"><button id="addBtn" type="button">ДОДАТИ</button></div><div class="items" id="items"></div><div class="empty" id="emptyText">Відсік поки порожній.</div></div>
+</section>
+</section>
+<div class="footer">CONTINERA · EXTERNAL STORAGE CONTROL · LOCAL MODE</div>
+</main>
+<script>
+(() => {
+ const STORE="continera-external-storage-v1";
+ const fresh=()=>({active:"left",keyIn:null,unlocked:{left:false,right:false},open:{left:false,right:false},items:{left:[],right:[]}});
+ let data=fresh();
+ try{const saved=JSON.parse(localStorage.getItem(STORE));if(saved&&saved.unlocked&&saved.open&&saved.items)data={...fresh(),...saved};}catch{}
+ const $=id=>document.getElementById(id);
+ const side=()=>data.active;
+ function save(){localStorage.setItem(STORE,JSON.stringify(data));}
+ function render(){
+  const s=side(),unlocked=data.unlocked[s],open=data.open[s],keyHere=data.keyIn===s;
+  $("leftTab").classList.toggle("active",s==="left");$("rightTab").classList.toggle("active",s==="right");
+  $("sideTitle").textContent=s==="left"?"ЛІВИЙ БОКОВИЙ ВІДСІК":"ПРАВИЙ БОКОВИЙ ВІДСІК";
+  $("sideCaption").textContent=s==="left"?"СТОРОНА ВОДІЯ":"ПРОТИЛЕЖНА СТОРОНА";
+  $("door").classList.toggle("open",open);$("doorCaption").textContent=open?"ДВЕРЦЯТА ВІДЧИНЕНІ":"ДВЕРЦЯТА ЗАЧИНЕНІ";
+  $("key").classList.toggle("inserted",keyHere);$("keyCaption").textContent=keyHere?"КЛЮЧ ВСТАВЛЕНИЙ":"КЛЮЧ ВИТЯГНУТИЙ";
+  $("stateText").textContent=open?"ВІДЧИНЕНИЙ":unlocked?"ЗАЧИНЕНИЙ · РОЗБЛОКОВАНИЙ":"ЗАЧИНЕНИЙ · ЗАБЛОКОВАНИЙ";
+  $("keyPill").textContent=keyHere?"КЛЮЧ У ЦЬОМУ ЗАМКУ":data.keyIn?"КЛЮЧ В ІНШОМУ ЗАМКУ":"КЛЮЧ НЕ В ЗАМКУ";
+  $("keyPill").classList.toggle("good",keyHere);
+  $("insertBtn").disabled=!!data.keyIn||unlocked||open;
+  $("turnBtn").disabled=!keyHere||unlocked||open;
+  $("doorBtn").disabled=!unlocked||!keyHere;
+  $("doorBtn").textContent=open?"ЗАЧИНИТИ ВІДСІК":"ВІДЧИНИТИ ВІДСІК";
+  $("removeBtn").disabled=!keyHere||open;
+  $("items").innerHTML="";const list=data.items[s]||[];
+  $("countPill").textContent=list.length+" ПРЕДМЕТІВ";$("emptyText").hidden=list.length>0;
+  list.forEach((name,i)=>{const el=document.createElement("span");el.className="item";const label=document.createElement("span");label.textContent=name;const del=document.createElement("button");del.type="button";del.textContent="×";del.setAttribute("aria-label","Видалити "+name);del.addEventListener("click",()=>{if(!data.open[s])return;data.items[s].splice(i,1);save();render();});el.append(label,del);$("items").append(el);});
+  $("addBtn").disabled=!open;$("itemInput").disabled=!open;
+ }
+ function switchSide(next){if(data.keyIn!==null&&data.keyIn!==next){/* key stays in the other lock */}data.active=next;save();render();}
+ $("leftTab").addEventListener("click",()=>switchSide("left"));$("rightTab").addEventListener("click",()=>switchSide("right"));
+ $("insertBtn").addEventListener("click",()=>{if(data.keyIn!==null)return;data.keyIn=side();save();render();});
+ $("turnBtn").addEventListener("click",()=>{if(data.keyIn!==side())return;data.unlocked[side()]=true;save();render();});
+ $("doorBtn").addEventListener("click",()=>{const s=side();if(!data.unlocked[s]&& !data.open[s])return;data.open[s]=!data.open[s];save();render();});
+ $("removeBtn").addEventListener("click",()=>{const s=side();if(data.keyIn!==s||data.open[s])return;if(data.unlocked[s])data.unlocked[s]=false;data.keyIn=null;save();render();});
+ function addItem(){const input=$("itemInput"),value=input.value.trim();if(!value||!data.open[side()])return;data.items[side()].push(value);input.value="";save();render();}
+ $("addBtn").addEventListener("click",addItem);$("itemInput").addEventListener("keydown",e=>{if(e.key==="Enter")addItem();});
+ render();
+ if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+})();
+</script>
+</body></html>
